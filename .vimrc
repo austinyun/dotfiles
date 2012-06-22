@@ -26,7 +26,7 @@ set noswapfile
 " | UI         |
 " o------------o
 set ruler
-set nu
+set nu "line numbers
 set laststatus=2
 set showcmd
 
