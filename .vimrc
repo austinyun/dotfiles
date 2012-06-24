@@ -89,7 +89,6 @@ au FocusLost * :silent! wall            " Save when losing focus
 au VimResized * :wincmd =               " Resize splits when window is resized
 
 " Invisible characters {{{
-set list
 set listchars=eol:¬,extends:>,precedes:<
 " }}}
 
@@ -332,6 +331,7 @@ if has("gui_running")
     set guioptions=
     set guifont=Dina\ 10
     set cursorline
+    set list
 else
     set t_Co=256
 endif
