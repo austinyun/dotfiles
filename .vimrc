@@ -25,7 +25,6 @@ set autoindent
 set showmode
 set showcmd
 set hidden
-set visualbell
 set ttyfast
 set ruler
 set backspace=indent,eol,start
