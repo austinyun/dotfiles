@@ -163,8 +163,20 @@ set foldtext=MyFoldText()
 " Plugin Settings ---------------------------------------------------------- {{{
 " NERDTree {{{
 nnoremap <F1> :NERDTreeToggle<CR>
-let NERDTreeShowBookmarks=1
-let NERDTreeChDirMode=2 " Change the NERDTree directory to the root node
+inoremap <F1> <ESC>:NERDTreeToggle<CR>
+
+augroup ps_nerdtree
+    au!
+    au FileType nerdtree setlocal nolist
+    au FileType nerdtree nnoremap <buffer> K :q<CR>
+augroup END
+
+let NERDTreeShowBookmarks=1     " Show bookmarks
+let NERDTreeChDirMode=2         " Change the NERDTree directory to the root node
+let NERDTreeMinimalUI=1
+let NERDTreeDirArrows=1
+
+let NERDTreeIgnore = ['.vim$', '\~$', 'tags.bak' ]
 " }}}
 
 " Indent Guides {{{
@@ -213,6 +225,10 @@ let my_ctrlp_git_command = "" .
 let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
+" }}}
+
+" Autoclose {{{
+nmap <leader>x <Plug>ToggleAutoCloseMappings
 " }}}
 " -------------------------------------------------------------------------- }}}
 
