@@ -1,0 +1,21 @@
+[user]
+    email = w.austin.yun@gmail.com
+    name = Austin Yun
+
+[core]
+    pager = cat
+    editor = vim
+    excludesfile = ~/.gitignore_global
+
+[alias]
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+    st = status
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
