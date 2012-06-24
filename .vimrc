@@ -6,12 +6,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'msanders/snipmate.vim'
 Bundle 'AutoClose'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-commentary'
 
 set t_Co=256
 set nocompatible
@@ -46,7 +46,7 @@ set autochdir
 set shiftround
 set title
 set linebreak
-
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " Enable extended % matching
 runtime macros/matchit.vim
 " Prevents memory leaking from matches
@@ -165,7 +165,7 @@ set foldtext=MyFoldText()
 nnoremap <F1> :NERDTreeToggle<CR>
 inoremap <F1> <ESC>:NERDTreeToggle<CR>
 
-augroup ps_nerdtree
+augroup plugin_nerdtree
     au!
     au FileType nerdtree setlocal nolist
     au FileType nerdtree nnoremap <buffer> K :q<CR>
@@ -229,6 +229,23 @@ nnoremap <leader>. :CtrlPTag<cr>
 
 " Autoclose {{{
 nmap <leader>x <Plug>ToggleAutoCloseMappings
+" }}}
+
+" Commentary {{{
+nmap <leader>c <Plug>CommentaryLine
+xmap <leader>c <Plug>Commentary
+
+augroup plugin_commentary
+    au!
+    au FileType clojurescript setlocal commentstring=;\ %s
+augroup END
+" }}}
+
+" Fugitive {{{
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gl :Git lg<CR>
+nnoremap <leader>gw :Gwrite<CR>
+
 " }}}
 " -------------------------------------------------------------------------- }}}
 
@@ -325,6 +342,10 @@ if has('win32') || has('win64')
     set guifont=Consolas:h10:cANSI
     cd ~
 endif
+
+" Bells, go the hell away please
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 " -------------------------------------------------------------------------- }}}
 
