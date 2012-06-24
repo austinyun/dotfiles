@@ -24,7 +24,7 @@ alias gs='git st'
 alias gl='git lg'
 alias ga='git add'
 alias gu='git add -u'
-alias gc="git commit -m '"
+alias gc='git commit'
 
 alias pacup='sudo pacman -Syu'
 
