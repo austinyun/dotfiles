@@ -18,6 +18,7 @@ set nocompatible
 filetype plugin indent on
 syntax enable
 " -------------------------------------------------------------------------- }}}
+
 " Basic Options ------------------------------------------------------------ {{{
 set encoding=utf-8
 set modelines=0
@@ -28,7 +29,7 @@ set hidden
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set nonumber
+set number
 set norelativenumber
 set laststatus=2
 set history=1000
@@ -48,15 +49,18 @@ set linebreak
 
 " Enable extended % matching
 runtime macros/matchit.vim
+" Prevents memory leaking from matches
+autocmd BufWinLeave * call clearmatches()
 
 " Tabs, spaces, wrapping {{{
 set tabstop=8
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set wrap
+set nowrap
 set textwidth=80
-set formatoptions=qrn1
+set formatoptions+=qln
+set formatoptions-=ro
 " }}}
 
 " Backups {{{
@@ -81,26 +85,22 @@ set sidescrolloff=10
 " }}}
 
 set completeopt=longest,menuone,preview " Better completion
-au FocusLost * :silent! wall    " Save when losing focus
-au VimResized * :wincmd =       " Resize splits when window is resized
+au FocusLost * :silent! wall            " Save when losing focus
+au VimResized * :wincmd =               " Resize splits when window is resized
 
 " Invisible characters {{{
 set list
 set listchars=eol:¬,extends:>,precedes:<
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:¿
-    au InsertLeave * :set listchars-=trail:¿
-augroup END
 " }}}
 
-set synmaxcol=500 " Don't try to highlight lines longer than 500 characters
+set synmaxcol=500   " Don't try to highlight lines longer than 500 characters
 
 "Time out on key codes but not mappings (for terminal Vim)
 set notimeout
 set ttimeout
 set ttimeoutlen=10
 " -------------------------------------------------------------------------- }}}
+
 " Key Mappings ------------------------------------------------------------- {{{
 let maplocalleader = ","
 
@@ -131,6 +131,7 @@ nnoremap <leader>v <C-w>v
 " Great for pasting Python lines into REPLs.
 nnoremap vv ^vg_
 " -------------------------------------------------------------------------- }}}
+
 " Folding ------------------------------------------------------------------ {{{
 set foldlevelstart=0
 
@@ -138,7 +139,8 @@ set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
 
-nnoremap zO zCzO " Make zO recursively open the top level fold, period
+" Make zO recursively open the top level fold, period
+nnoremap zO zCzO 
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -153,16 +155,16 @@ function! MyFoldText() " {{{
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '¿' . repeat(" ",fillcharcount) . foldedlinecount . '¿' . ' '
+    return line . repeat(" ",fillcharcount) . '|' . foldedlinecount . '|' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
 " -------------------------------------------------------------------------- }}}
+
 " Plugin Settings ---------------------------------------------------------- {{{
 " NERDTree {{{
 nnoremap <F1> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=2 " Change the NERDTree directory to the root node
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " }}}
 
 " Indent Guides {{{
@@ -173,8 +175,8 @@ if has("gui_running")
     let g:indent_guides_color_change_percent=5
 endif
 " }}}
-" Ctrl-P {{{
 
+" Ctrl-P {{{
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_map = '<leader>,'
@@ -211,31 +213,87 @@ let my_ctrlp_git_command = "" .
 let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
-
 " }}}
 " -------------------------------------------------------------------------- }}}
+
 " Filetype-specific -------------------------------------------------------- {{{
 " Javascript {{{
-autocmd FileType html set sw=2 ts=2 sts=2
-autocmd FileType javascript set sw=2 ts=2 sts=2
-autocmd FileType css set sw=2 ts=2 sts=2
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+augroup ft_javascript
+    au!
+    au FileType javascript setlocal foldmethod=marker
+    au FileType javascript setlocal foldmarker={,}
+    au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    au FileType javascript set sw=2 ts=2 sts=2
+    au FileType javascript map <F2> :w<CR>:!nohup node % >> output.log &<CR>:!chromium-browser localhost:8080<CR><CR>
+    au FileType javascript map <F3> :!killall -2 node<CR>
+augroup END
+" }}}
 
-autocmd FileType javascript map <F3> :w<CR>:!nohup node % >> output.log &<CR>:!chromium-browser localhost:8080<CR><CR>
-autocmd FileType javascript map <F4> :!killall -2 node<CR>
+" HTML {{{
+augroup ft_html
+    au!
+    au FileType html set sw=2 ts=2 sts=2
+augroup END
+" }}}
+
+" CSS {{{
+augroup ft_css
+    au!
+    au BufNewFile,BufRead *.less setlocal filetype=less
+    au Filetype less,css setlocal foldmethod=marker
+    au FileType less,css setlocal foldmarker={,}
+    au FileType less,css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType less,css setlocal iskeyword+=-
+
+    " Map <leader>S to sort CSS properties. Badass.
+    au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+augroup END
 " }}}
 
 " Java {{{
-autocmd Filetype java set makeprg=javac\ -cp\ .\ %
-set shellpipe=>\ %s\ 2>&1
-set errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
-autocmd FileType java map <F3> :w<CR>:make<CR><CR>:cw<CR>
-autocmd FileType java map <F4> :!java -cp . %:r<CR><CR>
-autocmd FileType java map <F5> :cprevious<CR>
-autocmd FileType java map <F6> :cnext<CR>
+augroup ft_java
+    au Filetype java set makeprg=javac\ -cp\ .\ %
+    au Filetype java set shellpipe=>\ %s\ 2>&1
+    au Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
+    au FileType java map <F2> :w<CR>:make<CR><CR>:cw<CR>
+    au FileType java map <F3> :!java -cp . %:r<CR><CR>
+    au FileType java map <F4> :cprevious<CR>
+    au FileType java map <F5> :cnext<CR>
+augroup END
 " }}}
 
-" Color scheme {{{
+" Markdown {{{
+augroup ft_markdown
+    au!
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+
+    " Use <localleader>1/2/3 to add headings.
+    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
+    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
+    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+augroup END
+" }}}
+
+" QuickFix {{{
+
+augroup ft_quickfix
+    au!
+    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
+augroup END
+
+" }}} Vim {{{
+augroup ft_vim
+    au!
+
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
+" -------------------------------------------------------------------------- }}}
+
+" -------------------------------------------------------------------------- }}}
+
+" GUI / OS Specific -------------------------------------------------------- {{{
 if has("gui_running")
     set guioptions=
     set guifont=Dina\ 10
@@ -249,12 +307,10 @@ if has('win32') || has('win64')
     set columns=80
     winpos 0 0 
     set guifont=Consolas:h10:cANSI
-    source $VIMRUNTIME/mswin.vim
-    behave mswin
     cd ~
 endif
 
-syntax on
+" -------------------------------------------------------------------------- }}}
+
 set background=dark
 colorscheme solarized
-" }}}
