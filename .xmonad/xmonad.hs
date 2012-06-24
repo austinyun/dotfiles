@@ -49,6 +49,7 @@ myWorkspaces = ["1:term","2:web","3:code","4:vm","5:node"] ++ map show [6..9]
 --
 myManageHook = composeAll
     [ className =? "chromium-browser" --> doShift "2:web"
+    , className =? "feh"            --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "VirtualBox"     --> doShift "4:vm"
     , className =? "Xchat"          --> doShift "5:media"
@@ -69,9 +70,9 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (
-    Tall 1 (3/100) (3/4) |||
+--    Tall 1 (3/100) (2/3) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
-    tabbed shrinkText tabConfig |||
+--    tabbed shrinkText tabConfig |||
     Full |||
     spiral (6/7)) |||
     noBorders (fullscreenFull Full)
