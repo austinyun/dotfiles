@@ -18,11 +18,15 @@ PROMPT='${vcs_info_msg_0_}[%~]%{$reset_color%} '
 alias ls='ls -F --color'
 alias la='ls -A'
 alias c='clear'
+
 alias gp='git push origin master'
 alias gs='git st'
 alias gl='git lg'
 alias ga='git add'
+alias gu='git add -u'
 alias gc="git commit -m '"
+
+alias pacup='sudo pacman -Syu'
 
 # Environment variables -------------------------------------------------------
 export EDITOR='vim'
