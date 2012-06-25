@@ -52,10 +52,9 @@ myManageHook = composeAll
     , className =? "feh"            --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "VirtualBox"     --> doShift "4:vm"
-    , className =? "Xchat"          --> doShift "5:media"
+    , className =? "Xchat"          --> doShift "2:web"
     , className =? "Eclipse"        --> doShift "3:code"
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "gpicview"       --> doFloat
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
 
@@ -73,7 +72,7 @@ myLayout = avoidStruts (
 --    Tall 1 (3/100) (2/3) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
 --    tabbed shrinkText tabConfig |||
-    Full |||
+--    Full |||
     spiral (6/7)) |||
     noBorders (fullscreenFull Full)
 
@@ -132,6 +131,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_g),
      spawn "chromium")
 
+  -- Launch GVim
+  , ((modMask, xK_v),
+     spawn "gvim")
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --

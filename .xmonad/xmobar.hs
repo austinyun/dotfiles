@@ -1,8 +1,7 @@
--- xmobar config used by Vic Fryzel
+-- Based on the xmobar config used by Vic Fryzel
 -- Author: Vic Fryzel
 -- http://github.com/vicfryzel/xmonad-config
 
--- This is setup for dual 1920x1080 monitors, with the right monitor as primary
 Config {
     font = "xft:Dina-10",
     bgColor = "#002b36",
