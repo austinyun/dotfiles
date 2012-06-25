@@ -29,5 +29,6 @@ alias gc='git commit'
 alias pacup='sudo pacman -Syu'
 
 # Environment variables -------------------------------------------------------
+eval `dircolors ~/.dircolors` # Changes the LS_COLORS variable
 export EDITOR='vim'
 export GREP_OPTIONS='--color=auto'
