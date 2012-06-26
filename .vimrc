@@ -13,7 +13,6 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 
-set t_Co=256
 set nocompatible
 filetype plugin indent on
 syntax enable
