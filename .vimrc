@@ -336,14 +336,6 @@ else
     set t_Co=256
 endif
 
-if has('win32') || has('win64')
-    set lines=50
-    set columns=80
-    winpos 0 0 
-    set guifont=Consolas:h10:cANSI
-    cd ~
-endif
-
 " Bells, go the hell away please
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
