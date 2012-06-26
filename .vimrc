@@ -255,17 +255,17 @@ augroup ft_javascript
     au!
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
-    au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    au FileType javascript set sw=2 ts=2 sts=2
-    au FileType javascript map <F2> :w<CR>:!nohup node % >> output.log &<CR>:!chromium-browser localhost:8080<CR><CR>
-    au FileType javascript map <F3> :!killall -2 node<CR>
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType javascript setlocal sw=2 ts=2 sts=2
+    au FileType javascript nnoremap <buffer> <F2> :w<CR>:!nohup node % >> output.log &<CR>:!chromium-browser localhost:8080<CR><CR>
+    au FileType javascript nnoremap <buffer> <F3> :!killall -2 node<CR>
 augroup END
 " }}}
 
 " HTML {{{
 augroup ft_html
     au!
-    au FileType html set sw=2 ts=2 sts=2
+    au FileType html setlocal sw=2 ts=2 sts=2
 augroup END
 " }}}
 
@@ -285,13 +285,13 @@ augroup END
 
 " Java {{{
 augroup ft_java
-    au Filetype java set makeprg=javac\ -cp\ .\ %
-    au Filetype java set shellpipe=>\ %s\ 2>&1
-    au Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
-    au FileType java map <F2> :w<CR>:make<CR><CR>:cw<CR>
-    au FileType java map <F3> :!java -cp . %:r<CR><CR>
-    au FileType java map <F4> :cprevious<CR>
-    au FileType java map <F5> :cnext<CR>
+    au Filetype java setlocal makeprg=javac\ -cp\ .\ %
+    au Filetype java setlocal shellpipe=>\ %s\ 2>&1
+    au Filetype java setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
+    au FileType java nnoremap <buffer> <F2> :w<CR>:make<CR><CR>:cw<CR>
+    au FileType java nnoremap <buffer> <F3> :!java -cp . %:r<CR><CR>
+    au FileType java nnoremap <buffer> <F4> :cprevious<CR>
+    au FileType java nnoremap <buffer> <F5> :cnext<CR>
 augroup END
 " }}}
 
