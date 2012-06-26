@@ -1,3 +1,5 @@
+(add-to-list 'load-path "~/.emacs.d/lib/")
+
 (require 'package)
 
 (progn
@@ -19,7 +21,7 @@
     clojure-project-mode
     clojure-test-mode
     elein ;; Leiningen support from emacs
-    ;;durandel ;; Clojure stuff
+    durendal ;; Clojure stuff
     jade-mode ;; Major mode for jade templates
     markdown-mode))
 
@@ -27,6 +29,10 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;; JS2 Mode stuff
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; This seems like a good place to end the init file since everything after this
 ;; is a preference of some kind and those that depend on the packages have to
@@ -64,3 +70,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (show-paren-mode 1)
+
+(defun pretty-fn ()
+  (font-lock-add-keywords nil `(("(\\(\\<fn\\>\\)"
+				 (0 (progn (compose-region (match-beginning 1)
+							   (match-end 1)
+							   "\u0192"
+							   'decompose-region)))))))
+
+(add-hook 'clojure-mode-hook 'pretty-fn)
