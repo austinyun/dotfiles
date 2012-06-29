@@ -41,6 +41,8 @@
 (load-theme 'solarized-dark t)
 (set-default-font "Dina-12")
 
+(setq make-backup-files nil) ;; I've got Git. But I might change this.
+
 (require 'smex)
 (setq smex-save-file (concat user-emacs-directory ".cache/.smex-items"))
 (smex-initialize)
