@@ -12,6 +12,7 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/VimClojure'
 
 set nocompatible
@@ -303,8 +304,6 @@ augroup END
 " Markdown {{{
 augroup ft_markdown
     au!
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
