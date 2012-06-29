@@ -8,10 +8,11 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'msanders/snipmate.vim'
-Bundle 'AutoClose'
+Bundle 'Townk/vim-autoclose'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
+Bundle 'vim-scripts/VimClojure'
 
 set nocompatible
 filetype plugin indent on
@@ -282,6 +283,11 @@ augroup ft_css
 augroup END
 " }}}
 
+" Clojure {{{
+augroup ft_clojure
+    " Make AutoClose stop adding extra apostrophes
+    au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'")
+" }}}
 " Java {{{
 augroup ft_java
     au Filetype java setlocal makeprg=javac\ -cp\ .\ %
