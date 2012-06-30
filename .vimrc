@@ -14,6 +14,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/VimClojure'
+Bundle 'tyok/js-mask'
 
 set nocompatible
 filetype plugin indent on
