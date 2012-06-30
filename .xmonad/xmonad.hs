@@ -69,7 +69,7 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (
---    Tall 1 (3/100) (2/3) |||
+    Tall 1 (3/100) (2/3) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
 --    tabbed shrinkText tabConfig |||
 --    Full |||
