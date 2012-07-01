@@ -1,17 +1,13 @@
+;; First, turn off toolbars and scrollbars so they don't flash
+(progn (dolist (mode '(tool-bar-mode scroll-bar-mode))
+	 (when (fboundp mode) (funcall mode -1))))
+
 (add-to-list 'load-path "~/.emacs.d/lib/")
 
-(require 'package)
-
-(progn
-  (dolist (mode '(tool-bar-mode scroll-bar-mode))
-    (when (fboundp mode) (funcall mode -1))))
-
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
-
 (defvar my-packages
-  '(solarized-theme
+  '(solarized-theme ;; teh best
+    evil ;; Better Vim style modal editing
+    evil-leader ;; Provides a Vim leader key
     paredit
     smex ;; ido mode for M-x basically
     ido-ubiquitous ;; use ido mode whenever possible
@@ -25,59 +21,21 @@
     jade-mode ;; Major mode for jade templates
     markdown-mode))
 
-;; Installs everything in the list my-packages
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(require-and-exec 'package
+		  (add-to-list 'package-archives
+			       '("marmalade" . "http://marmalade-repo.org/packages/") t)
+		  (package-initialize)
+		  (dolist (package my-packages)
+		    (unless (package-installed-p package)
+		      (package-install package)))) 
 
-;; JS2 Mode stuff
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-;; This seems like a good place to end the init file since everything after this
-;; is a preference of some kind and those that depend on the packages have to
-;; happen after here.
-
-(load-theme 'solarized-dark t)
-(set-default-font "Dina-12")
-
-(setq make-backup-files nil) ;; I've got Git. But I might change this.
-
-(require 'smex)
-(setq smex-save-file (concat user-emacs-directory ".cache/.smex-items"))
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commnads)
-
-;; ido mode
-(require 'ido)
-(setq ido-enable-flex-matching t
-      ido-enable-prefix nil
-      ido-max-prospects 10
-      ido-save-directory-list-file "~/.emacs.d/.cache/.ido.last")
-(ido-mode t)
-(ido-ubiquitous t)
-
-(when window-system
-  (tooltip-mode -1)
-  (mouse-wheel-mode t)
-  (blink-cursor-mode -1))
-
-(setq visible-bell t
-      inhibit-startup-message t
-      sentence-end-double-space nil
-      whitespace-line-column 80
-      whitespace-style '(face trailing lines-tail tabs))
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-(show-paren-mode 1)
-
-(defun pretty-fn ()
-  (font-lock-add-keywords nil `(("(\\(\\<fn\\>\\)"
-				 (0 (progn (compose-region (match-beginning 1)
-							   (match-end 1)
-							   "\u0192"
-							   'decompose-region)))))))
+(require 'my-keymaps)
+(require 'my-settings)
 
 (add-hook 'clojure-mode-hook 'pretty-fn)
+
+(add-hook 'emacs-startup-hook (lambda ()
+                                (message "Time needed to load: %s seconds."
+                                         (emacs-uptime "%s"))) 'append)
+
+(add-hook 'after-save-hook 'byte-compile-config-on-save)
