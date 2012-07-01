@@ -32,3 +32,4 @@ alias pacup='sudo pacman -Syu'
 eval `dircolors ~/.dircolors` # Changes the LS_COLORS variable
 export EDITOR='vim'
 export GREP_OPTIONS='--color=auto'
+export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
