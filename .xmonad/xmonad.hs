@@ -30,7 +30,7 @@ myTerminal = "urxvt"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:code","4:vm","5:node"] ++ map show [6..9]
+myWorkspaces = ["1:term","2:web","3:code","4:node"] ++ map show [5..9]
  
 
 ------------------------------------------------------------------------
