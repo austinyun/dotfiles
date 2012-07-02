@@ -19,6 +19,9 @@ alias ls='ls -F --color'
 alias la='ls -A'
 alias c='clear'
 
+alias ..='cd ..'
+alias ...='cd ../..'
+
 alias gp='git push origin master'
 alias gs='git st'
 alias gl='git lg'
