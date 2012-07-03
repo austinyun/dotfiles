@@ -13,6 +13,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tyok/js-mask'
 
