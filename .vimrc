@@ -307,9 +307,9 @@ augroup END
 augroup ft_markdown
     au!
     " Use <localleader>1/2/3 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>1 I### <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>2 I#### <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>3 I##### <ESC>
 augroup END
 " }}}
 
