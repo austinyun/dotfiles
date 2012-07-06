@@ -5,6 +5,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'baskerville/bubblegum'
 Bundle 'scrooloose/nerdtree'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'msanders/snipmate.vim'
@@ -338,8 +339,6 @@ if has("gui_running")
     set guifont=Dina\ 10
     set cursorline
     set list
-else
-    set t_Co=256
 endif
 
 " Bells, go the hell away please
@@ -348,5 +347,9 @@ autocmd GUIEnter * set visualbell t_vb=
 
 " -------------------------------------------------------------------------- }}}
 
-set background=dark
-colorscheme solarized
+if $TERM == "screen-256color"
+    colorscheme bubblegum
+else
+    set background=dark
+    colorscheme solarized
+endif
