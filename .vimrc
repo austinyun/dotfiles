@@ -8,7 +8,6 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'baskerville/bubblegum'
 Bundle 'scrooloose/nerdtree'
 Bundle 'mutewinter/vim-indent-guides'
-Bundle 'msanders/snipmate.vim'
 Bundle 'Townk/vim-autoclose'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
@@ -70,7 +69,6 @@ set formatoptions-=ro
 " Backups {{{
 set undodir=~/.vim/tmp/undo//       " undo files
 set backupdir=~/.vim/tmp/backup//   " backups
-set directory=~/.vim/tmp/swap//     " swap files
 set backup                          " enable backups
 set noswapfile                      " no swap files
 " }}}
@@ -111,10 +109,11 @@ let maplocalleader = ","
 inoremap <C-f> <C-x><C-f>
 inoremap <C-]> <C-x><C-]>
 
-nnoremap <left>  :cprev<cr>zvzz
-nnoremap <right> :cnext<cr>zvzz
-nnoremap <up>    :lprev<cr>zvzz
-nnoremap <down>  :lnext<cr>zvzz
+" Window movement commands
+nnoremap <left>  :wincmd h<CR>
+nnoremap <right> :wincmd l<CR>
+nnoremap <up>    :wincmd k<CR>
+nnoremap <down>  :wincmd j<CR>
 
 "Double percent sign expands to directory of the current file
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
@@ -122,13 +121,6 @@ cnoremap %% <C-R>=expand('%:h').'/'<CR>
 " Set C-j / C-k to scroll up and down half a screen
 nnoremap <silent> <C-j> <C-d>
 nnoremap <silent> <C-k> <C-u>
-
-" Buffer movement commands
-nnoremap <silent> <leader>h :wincmd h<CR>
-nnoremap <silent> <leader>j :wincmd j<CR>
-nnoremap <silent> <leader>k :wincmd k<CR>
-nnoremap <silent> <leader>l :wincmd l<CR>
-nnoremap <leader>v <C-w>v
 
 " Select (charwise) the contents of the current line, excluding indentation.
 " Great for pasting Python lines into REPLs.
