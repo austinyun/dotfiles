@@ -30,7 +30,8 @@ myTerminal = "urxvt"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:web","2:term","3:code","4:out","5:chat"] ++ map show [6..9]
+myWorkspaces = ["1:web","2:term","3:code","4:out","5:chat", "6:vm"] 
+                ++ map show [7..9]
  
 
 ------------------------------------------------------------------------
@@ -51,7 +52,7 @@ myManageHook = composeAll
     [ className =? "chromium-browser" --> doShift "1:web"
     , className =? "feh"            --> doFloat
     , className =? "Gimp"           --> doFloat
-    , className =? "VirtualBox"     --> doShift "4:vm"
+    , className =? "VirtualBox"     --> doShift "6:vm"
     , className =? "Xchat"          --> doShift "5:chat"
     , className =? "Eclipse"        --> doShift "3:code"
     , resource  =? "desktop_window" --> doIgnore
