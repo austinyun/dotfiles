@@ -55,6 +55,8 @@ runtime macros/matchit.vim
 " Prevents memory leaking from matches
 autocmd BufWinLeave * call clearmatches()
 
+set wildmenu
+
 " Tabs, spaces, wrapping {{{
 set tabstop=8
 set shiftwidth=4
@@ -186,7 +188,7 @@ endif
 " Ctrl-P {{{
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_map = '<leader>,'
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
