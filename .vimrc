@@ -7,6 +7,7 @@ Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'baskerville/bubblegum'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Townk/vim-autoclose'
 Bundle 'kien/ctrlp.vim'
@@ -58,7 +59,7 @@ autocmd BufWinLeave * call clearmatches()
 set wildmenu
 
 " Tabs, spaces, wrapping {{{
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -176,6 +177,13 @@ let NERDTreeDirArrows=1
 let NERDTreeIgnore = ['.vim$', '\~$', 'tags.bak' ]
 " }}}
 
+" Syntastic {{{
+let g:syntastic_javascript_jslint_conf = "--node --anon --sloppy"
+let g:syntastic_enable_signs=0
+let g:syntastic_auto_jump=1
+let g:syntastic_auto_loc_list=1
+" }}}
+
 " Indent Guides {{{
 if has("gui_running")
     let g:indent_guides_auto_colors=1
@@ -189,6 +197,7 @@ endif
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
@@ -254,9 +263,7 @@ augroup ft_javascript
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
     au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType javascript setlocal sw=2 ts=2 sts=2
-    au FileType javascript nnoremap <buffer> <F2> :w<CR>:!nohup node % >> output.log &<CR>:!chromium-browser localhost:8080<CR><CR>
-    au FileType javascript nnoremap <buffer> <F3> :!killall -2 node<CR>
+    au FileType javascript nmap <F4> :w<CR>:make<CR>:cw<CR>
 augroup END
 " }}}
 
@@ -286,6 +293,7 @@ augroup ft_clojure
     " Make AutoClose stop adding extra apostrophes
     au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'")
 " }}}
+"
 " Java {{{
 augroup ft_java
     au Filetype java setlocal makeprg=javac\ -cp\ .\ %
