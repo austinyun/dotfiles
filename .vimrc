@@ -7,16 +7,20 @@ Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'baskerville/bubblegum'
 Bundle 'scrooloose/nerdtree'
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'vim-scripts/UltiSnips'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Townk/vim-autoclose'
-Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
+
+" Language Specific
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tyok/js-mask'
+Bundle 'vim-ruby/vim-ruby'
 
 set nocompatible
 filetype plugin indent on
@@ -201,8 +205,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
-let g:ctrlp_max_height = 20
-let g:ctrlp_extensions = ['tag']
+let g:ctrlp_mruf_max = 20
+" let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -285,6 +289,13 @@ augroup ft_css
 
     " Map <leader>S to sort CSS properties. Badass.
     au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+augroup END
+" }}}
+
+" Ruby {{{
+augroup ft_ruby
+    au!
+    au FileType ruby setlocal foldmethod=indent
 augroup END
 " }}}
 
