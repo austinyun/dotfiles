@@ -31,6 +31,8 @@ alias gc='git commit'
 
 alias pacup='sudo pacman -Syu'
 
+alias t='tmux attach -d'
+
 # Environment variables -------------------------------------------------------
 eval `dircolors ~/.dircolors` # Changes the LS_COLORS variable
 export EDITOR='vim'
