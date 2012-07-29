@@ -13,4 +13,4 @@
                   ",K" 'slime-repl-compile-and-load
                   ",d" 'slime-documentation)
 
-provide 'my-keymaps)
+(provide 'my-keymaps)

@@ -17,20 +17,18 @@
     clojure-project-mode
     clojure-test-mode
     elein ;; Leiningen support from emacs
-    durendal ;; Clojure stuff
-    jade-mode ;; Major mode for jade templates
-    markdown-mode))
+    durendal)) ;; Clojure stuff
 
-(require-and-exec 'package
-		  (add-to-list 'package-archives
-			       '("marmalade" . "http://marmalade-repo.org/packages/") t)
-		  (package-initialize)
-		  (dolist (package my-packages)
-		    (unless (package-installed-p package)
-		      (package-install package)))) 
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+(dolist (package my-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
-(require 'my-keymaps)
 (require 'my-settings)
+(require 'my-keymaps)
 
 (add-hook 'clojure-mode-hook 'pretty-fn)
 
