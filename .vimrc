@@ -13,6 +13,7 @@ Bundle 'vim-scripts/UltiSnips'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Townk/vim-autoclose'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -21,6 +22,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tyok/js-mask'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rails'
 
 set nocompatible
 filetype plugin indent on
@@ -295,7 +297,7 @@ augroup END
 " Ruby {{{
 augroup ft_ruby
     au!
-    au FileType ruby setlocal foldmethod=indent
+    au FileType ruby setlocal foldmethod=manual
 augroup END
 " }}}
 

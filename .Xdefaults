@@ -1,0 +1,8 @@
+/* The following three lines, if uncommented, add transparency */
+#URxvt*inheritPixmap: true
+#URxvt*tintColor: white
+#URxvt*shading: 100
+
+urxvt*scrollBar:false
+urxvt*borderless:1
+urxvt*font: xft:Dina
