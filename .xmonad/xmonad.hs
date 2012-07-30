@@ -10,8 +10,6 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spiral
-import XMonad.Layout.Tabbed
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import qualified XMonad.StackSet as W
@@ -73,14 +71,11 @@ myLayout = avoidStruts (
     Tall 1 (3/100) (2/3) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
 --    tabbed shrinkText tabConfig |||
---    Full |||
-    spiral (6/7)) |||
     noBorders (fullscreenFull Full)
 
 
 ------------------------------------------------------------------------
 -- Colors and borders
--- Currently based on the ir_black theme.
 --
 myNormalBorderColor  = "#7c7c7c"
 myFocusedBorderColor = "#ffb6b0"
@@ -171,7 +166,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_Tab),
      windows W.focusUp  )
 
-
   -- Move focus to the master window.
   , ((modMask, xK_m),
      windows W.focusMaster  )
@@ -208,16 +202,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_period),
      sendMessage (IncMasterN (-1)))
 
-  -- Toggle the status bar gap.
-  -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
-
   -- Quit xmonad.
   , ((modMask .|. shiftMask, xK_q),
      io (exitWith ExitSuccess))
-
-  -- Restart xmonad.
---  , ((modMask, xK_q),
---    restart "xmonad" True)
   ]
   ++
  
@@ -226,14 +213,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [((m .|. modMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-  -- ++
-
-  -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-  -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-  -- [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-  --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-  --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
- 
  
 ------------------------------------------------------------------------
 -- Mouse bindings

@@ -1,5 +1,4 @@
 -- Based on the xmobar config used by Vic Fryzel
--- Author: Vic Fryzel
 -- http://github.com/vicfryzel/xmonad-config
 
 Config {
