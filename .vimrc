@@ -4,25 +4,33 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'baskerville/bubblegum'
+
+" Navigation Plugins
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
+Bundle 'vim-scripts/bufkill.vim'
+
 Bundle 'vim-scripts/UltiSnips'
-Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Townk/vim-autoclose'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 
-" Language Specific
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
+
+" Language Specific / Syntax Helpers
+Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tyok/js-mask'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+
+" Color Themes / Visual Improvements
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'baskerville/bubblegum'
+Bundle 'mutewinter/vim-indent-guides'
+Bundle 'bronson/vim-trailing-whitespace'
 
 set nocompatible
 filetype plugin indent on
@@ -124,6 +132,9 @@ nnoremap <right> :wincmd l<CR>
 nnoremap <up>    :wincmd k<CR>
 nnoremap <down>  :wincmd j<CR>
 
+nnoremap <F2> :bp<CR>
+nnoremap <F3> :bn<CR>
+
 "Double percent sign expands to directory of the current file
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
@@ -144,7 +155,7 @@ nnoremap <Space> za
 vnoremap <Space> za
 
 " Make zO recursively open the top level fold, period
-nnoremap zO zCzO 
+nnoremap zO zCzO
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -191,12 +202,10 @@ let g:syntastic_auto_loc_list=1
 " }}}
 
 " Indent Guides {{{
-if has("gui_running")
-    let g:indent_guides_auto_colors=1
-    let g:indent_guides_enable_on_vim_startup=1
-    let g:indent_guides_guide_size=4
-    let g:indent_guides_color_change_percent=5
-endif
+let g:indent_guides_auto_colors=1
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=4
+let g:indent_guides_color_change_percent=5
 " }}}
 
 " Ctrl-P {{{
@@ -208,7 +217,6 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
 let g:ctrlp_mruf_max = 20
-" let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -239,10 +247,6 @@ let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command
 nnoremap <leader>. :CtrlPTag<cr>
 " }}}
 
-" Autoclose {{{
-nmap <leader>x <Plug>ToggleAutoCloseMappings
-" }}}
-
 " Commentary {{{
 nmap <leader>c <Plug>CommentaryLine
 xmap <leader>c <Plug>Commentary
@@ -254,11 +258,8 @@ augroup END
 " }}}
 
 " Fugitive {{{
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gl :Git lg<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
-
 " }}}
 " -------------------------------------------------------------------------- }}}
 
@@ -304,12 +305,14 @@ augroup END
 
 " Clojure {{{
 augroup ft_clojure
+    au!
     " Make AutoClose stop adding extra apostrophes
     au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'")
 " }}}
 "
 " Java {{{
 augroup ft_java
+    au!
     au Filetype java setlocal makeprg=javac\ -cp\ .\ %
     au Filetype java setlocal shellpipe=>\ %s\ 2>&1
     au Filetype java setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
@@ -340,7 +343,6 @@ augroup END
 " }}} Vim {{{
 augroup ft_vim
     au!
-
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
