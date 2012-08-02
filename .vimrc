@@ -195,7 +195,7 @@ let NERDTreeIgnore = ['.vim$', '\~$', 'tags.bak' ]
 " }}}
 
 " Syntastic {{{
-let g:syntastic_javascript_jslint_conf = "--node --anon --sloppy --regex"
+let g:syntastic_javascript_jslint_conf = "--node --nomen --anon --sloppy --regex"
 let g:syntastic_enable_signs=0
 let g:syntastic_auto_jump=1
 let g:syntastic_auto_loc_list=1
