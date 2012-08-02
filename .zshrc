@@ -38,3 +38,6 @@ eval `dircolors ~/.dircolors` # Changes the LS_COLORS variable
 export EDITOR='vim'
 export GREP_OPTIONS='--color=auto'
 export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
