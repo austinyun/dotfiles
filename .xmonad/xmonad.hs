@@ -77,8 +77,8 @@ myLayout = avoidStruts (
 ------------------------------------------------------------------------
 -- Colors and borders
 --
-myNormalBorderColor  = "#7c7c7c"
-myFocusedBorderColor = "#ffb6b0"
+-- myNormalBorderColor  = "#7c7c7c"
+-- myFocusedBorderColor = "#ffb6b0"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 -- tabConfig = defaultTheme {
@@ -91,13 +91,13 @@ myFocusedBorderColor = "#ffb6b0"
 -- }
 
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#FFB6B0"
+xmobarTitleColor = "#D33682"
 
 -- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 1
+myBorderWidth = 0
 
 
 ------------------------------------------------------------------------
@@ -239,18 +239,6 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
   ]
 
-
-------------------------------------------------------------------------
--- Status bars and logging
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'DynamicLog' extension for examples.
---
--- To emulate dwm's status bar
---
--- > logHook = dynamicLogDzen
---
-
-
 ------------------------------------------------------------------------
 -- Startup hook
 -- Perform an arbitrary action each time xmonad starts or is restarted
@@ -273,7 +261,7 @@ main = do
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
           , ppSep = "   "}
       , manageHook = manageDocks <+> myManageHook
-      , startupHook = setWMName "LG3D"
+      -- , startupHook = setWMName "LG3D"
   }
 
 
@@ -292,8 +280,8 @@ defaults = defaultConfig {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    normalBorderColor  = myNormalBorderColor,
-    focusedBorderColor = myFocusedBorderColor,
+    -- normalBorderColor  = myNormalBorderColor,
+    -- focusedBorderColor = myFocusedBorderColor,
 
     -- key bindings
     keys               = myKeys,
