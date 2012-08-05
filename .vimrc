@@ -25,6 +25,7 @@ Bundle 'tyok/js-mask'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
+Bundle 'jnwhiteh/vim-golang'
 
 " Color Themes / Visual Improvements
 Bundle 'altercation/vim-colors-solarized'
