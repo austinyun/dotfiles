@@ -10,6 +10,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/bufkill.vim'
 
+Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/UltiSnips'
 Bundle 'Townk/vim-autoclose'
 Bundle 'tpope/vim-commentary'
@@ -18,19 +19,19 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-git'
 
-" Language Specific / Syntax Helpers
-Bundle 'scrooloose/syntastic'
+" Language Specific
 Bundle 'vim-scripts/VimClojure'
 Bundle 'tyok/js-mask'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'jnwhiteh/vim-golang'
+Bundle 'lukerandall/haskellmode-vim'
 
 " Color Themes / Visual Improvements
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'baskerville/bubblegum'
-Bundle 'mutewinter/vim-indent-guides'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bronson/vim-trailing-whitespace'
 
 set nocompatible
@@ -108,10 +109,6 @@ set completeopt=longest,menuone,preview " Better completion
 au FocusLost * :silent! wall            " Save when losing focus
 au VimResized * :wincmd =               " Resize splits when window is resized
 
-" Invisible characters {{{
-set listchars=eol:¬,extends:>,precedes:<
-" }}}
-
 set synmaxcol=500   " Don't try to highlight lines longer than 500 characters
 
 "Time out on key codes but not mappings (for terminal Vim)
@@ -135,6 +132,8 @@ nnoremap <down>  :wincmd j<CR>
 
 nnoremap <F2> :bp<CR>
 nnoremap <F3> :bn<CR>
+nnoremap <F4> :cprevious<CR>
+nnoremap <F5> :cnext<CR>
 
 "Double percent sign expands to directory of the current file
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
@@ -203,9 +202,8 @@ let g:syntastic_auto_loc_list=1
 " }}}
 
 " Indent Guides {{{
-let g:indent_guides_auto_colors=1
 let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=4
+let g:indent_guides_indent_levels=5
 let g:indent_guides_color_change_percent=5
 " }}}
 
@@ -219,33 +217,33 @@ let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
 let g:ctrlp_mruf_max = 20
 
-let g:ctrlp_prompt_mappings = {
-\ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
-\ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
-\ 'PrtHistory(-1)':       ['<c-n>'],
-\ 'PrtHistory(1)':        ['<c-p>'],
-\ 'ToggleFocus()':        ['<c-tab>'],
-\ }
+" let g:ctrlp_prompt_mappings = {
+" \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
+" \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
+" \ 'PrtHistory(-1)':       ['<c-n>'],
+" \ 'PrtHistory(1)':        ['<c-p>'],
+" \ 'ToggleFocus()':        ['<c-tab>'],
+" \ }
 
-let ctrlp_filter_greps = "".
-    \ "egrep -iv '\\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-    \ ")$' | " .
-    \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
-    \ ")'"
+" let ctrlp_filter_greps = "".
+"     \ "egrep -iv '\\.(" .
+"     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+"     \ ")$' | " .
+"     \ "egrep -v '^(\\./)?(" .
+"     \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
+"     \ ")'"
 
-let my_ctrlp_user_command = "" .
-    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-    \ ctrlp_filter_greps
+" let my_ctrlp_user_command = "" .
+"     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+"     \ ctrlp_filter_greps
 
-let my_ctrlp_git_command = "" .
-    \ "cd %s && git ls-files | " .
-    \ ctrlp_filter_greps
+" let my_ctrlp_git_command = "" .
+"     \ "cd %s && git ls-files | " .
+"     \ ctrlp_filter_greps
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+" let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
-nnoremap <leader>. :CtrlPTag<cr>
+" nnoremap <leader>. :CtrlPTag<cr>
 " }}}
 
 " Commentary {{{
@@ -271,7 +269,6 @@ augroup ft_javascript
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
     au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType javascript nmap <F4> :w<CR>:make<CR>:cw<CR>
 augroup END
 " }}}
 
@@ -309,18 +306,27 @@ augroup ft_clojure
     au!
     " Make AutoClose stop adding extra apostrophes
     au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'")
+augroup end
 " }}}
-"
+
+" Haskell {{{
+augroup ft_haskell
+    au!
+    " TODO quickfix, errorformat
+    au FileType haskell setlocal formatoptions+=t
+    let g:ghc="/usr/bin/ghc"
+    let g:haddock_browser="/usr/bin/chromium"
+    au FileType haskell compiler ghc
+    au FileType haskell let b:ghc_staticoptions = '-Wall -Werror'
+augroup end
+" }}}
+
 " Java {{{
 augroup ft_java
     au!
     au Filetype java setlocal makeprg=javac\ -cp\ .\ %
     au Filetype java setlocal shellpipe=>\ %s\ 2>&1
     au Filetype java setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%Csymbol\ \ :\ %m,%-C%.%#
-    au FileType java nnoremap <buffer> <F2> :w<CR>:make<CR><CR>:cw<CR>
-    au FileType java nnoremap <buffer> <F3> :!java -cp . %:r<CR><CR>
-    au FileType java nnoremap <buffer> <F4> :cprevious<CR>
-    au FileType java nnoremap <buffer> <F5> :cnext<CR>
 augroup END
 " }}}
 
@@ -357,7 +363,6 @@ if has("gui_running")
     set guioptions=
     set guifont=Dina\ 10
     set cursorline
-    set list
 endif
 
 " Bells, go the hell away please
