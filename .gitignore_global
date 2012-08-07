@@ -4,8 +4,15 @@
 *.class
 *.dll
 *.exe
-*.o
+*.[oa]
 *.so
+*.lo
+*.Plo
+*.Po
+*.la
+*.pc
+*.hi
+*.pyc
 
 # Packages #
 ############
@@ -31,3 +38,9 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Editor specific #
+###################
+*.swp
+*.bak
+*~
