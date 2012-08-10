@@ -23,7 +23,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 alias gp='git push origin master'
-alias gs='git st'
+alias gs='git st --short'
 alias gl='git lg'
 alias ga='git add'
 alias gu='git add -u'
