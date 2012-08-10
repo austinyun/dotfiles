@@ -41,3 +41,7 @@ export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Algorithms I stuff
+export CLASSPATH=$CLASSPATH:$HOME/r/algs4/stdlib.jar:$HOME/r/algs4/algs4.jar
+export PATH=$PATH:$HOME/r/algs4/bin
