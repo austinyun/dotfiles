@@ -21,6 +21,7 @@ Bundle 'tpope/vim-git'
 
 " Language Specific
 Bundle 'vim-scripts/VimClojure'
+Bundle 'vim-scripts/paredit.vim'
 Bundle 'tyok/js-mask'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
@@ -259,6 +260,10 @@ augroup END
 " Fugitive {{{
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
+" }}}
+
+" Fugitive {{{
+let vimclojure#WantNailgun = 1
 " }}}
 " -------------------------------------------------------------------------- }}}
 
