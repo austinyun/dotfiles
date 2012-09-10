@@ -262,7 +262,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 " }}}
 
-" Fugitive {{{
+" VimClojure {{{
 let vimclojure#WantNailgun = 1
 " }}}
 " -------------------------------------------------------------------------- }}}
