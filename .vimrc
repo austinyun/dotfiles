@@ -310,7 +310,7 @@ augroup END
 augroup ft_clojure
     au!
     " Make AutoClose stop adding extra apostrophes
-    au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'")
+    au Filetype clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "'`")
 augroup end
 " }}}
 
