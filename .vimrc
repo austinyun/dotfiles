@@ -378,7 +378,10 @@ autocmd GUIEnter * set visualbell t_vb=
 
 if $TERM == "screen-256color"
     colorscheme bubblegum
-else
+elseif $TERM == "xterm"
     set background=dark
+    colorscheme solarized
+else
+    set background=light
     colorscheme solarized
 endif
