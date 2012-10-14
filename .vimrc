@@ -339,6 +339,8 @@ augroup END
 augroup ft_markdown
     au!
     " Use <localleader>1/2/3 to add headings.
+    au Filetype markdown setlocal textwidth=0
+    au Filetype markdown setlocal wrapmargin=2
     au Filetype markdown nnoremap <buffer> <localleader>1 I### <ESC>
     au Filetype markdown nnoremap <buffer> <localleader>2 I#### <ESC>
     au Filetype markdown nnoremap <buffer> <localleader>3 I##### <ESC>
