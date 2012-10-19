@@ -1,16 +1,29 @@
-;; Make ESC quit pretty much everything
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
-;; Clojure
-(evil-declare-key 'normal clojure-mode-map
-                  ",k" 'slime-compile-and-load-file
-                  ",K" 'slime-repl-compile-and-load
-                  ",d" 'slime-documentation)
-
 (provide 'my-keymaps)
+
+;;disable suspending emacs on ctrl-z
+(global-set-key (kbd "C-z") 'undo)
+(global-unset-key (kbd "C-x C-z"))
+
+;;use ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;;use ace-jump-mode
+(global-set-key (kbd "C-'") 'ace-jump-mode)
+
+;;use idomenu to search for symbols
+(global-set-key (kbd "C-o") 'idomenu)
+
+(global-set-key (kbd "C-<tab>") 'yas-expand-from-trigger-key)
+
+(defun goto-last-edit-point ()
+  "Go to the last point where editing occurred."
+  (interactive)
+  (let ((undos buffer-undo-list))
+    (when (listp undos)
+      (while (and undos
+		  (let ((pos (or (cdr-safe (car undos))
+				 (car undos))))
+		    (not (and (integerp pos)
+			      (goto-char (abs pos))))))
+	(setq undos (cdr undos))))))
+(global-set-key (kbd "C-c SPC") 'goto-last-edit-point)

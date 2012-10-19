@@ -6,31 +6,30 @@
 
 (defvar my-packages
   '(solarized-theme ;; teh best
-    evil ;; Better Vim style modal editing
-    evil-leader ;; Provides a Vim leader key
+    auto-complete
+    ace-jump-mode
     paredit
     smex ;; ido mode for M-x basically
+    idomenu
     ido-ubiquitous ;; use ido mode whenever possible
     yasnippet ;; Snippets
     yas-jit ;; load Yasnippets on demand
-    clojure-mode
-    clojure-project-mode
-    clojure-test-mode
-    elein ;; Leiningen support from emacs
-    durendal)) ;; Clojure stuff
+    nrepl
+    ac-nrepl
+    clojure-mode)) ;; Clojure stuff
 
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
+(when (not package-archive-contents) (package-refresh-contents))
 (dolist (package my-packages)
   (unless (package-installed-p package)
     (package-install package)))
 
 (require 'my-settings)
 (require 'my-keymaps)
-
-(add-hook 'clojure-mode-hook 'pretty-fn)
+(require 'my-clojure)
 
 (add-hook 'emacs-startup-hook (lambda ()
                                 (message "Time needed to load: %s seconds."

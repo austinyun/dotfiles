@@ -1,9 +1,6 @@
 (load-theme 'solarized-dark t)
 (set-default-font "Dina-8")
 
-(require 'evil)
-(evil-mode 1)
-
 (require 'smex)
 (setq smex-save-file (concat user-emacs-directory ".cache/.smex-items"))
 (smex-initialize)
@@ -18,6 +15,14 @@
 (ido-mode t)
 (ido-ubiquitous t)
 
+(require 'auto-complete-config)
+(ac-config-default)
+
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+(yas-global-mode 1)
+
 (when window-system
   (tooltip-mode -1)
   (mouse-wheel-mode t)
@@ -31,12 +36,5 @@
       whitespace-style '(face trailing lines-tail tabs))
 
 (show-paren-mode 1)
-
-(defun pretty-fn ()
-  (font-lock-add-keywords nil `(("(\\(\\<fn\\>\\)"
-				 (0 (progn (compose-region (match-beginning 1)
-							   (match-end 1)
-							   "\u0192"
-							   'decompose-region)))))))
 
 (provide 'my-settings)
