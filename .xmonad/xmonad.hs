@@ -28,7 +28,7 @@ myTerminal = "lilyterm"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:web","2:chat","3:code","4:term","5:vm"] ++ map show [6..9]
+myWorkspaces = ["1:web","2:chat","3:code","4:term","5:vm"] ++ map show [6..8]
 
 
 ------------------------------------------------------------------------
