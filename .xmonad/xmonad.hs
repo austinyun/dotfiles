@@ -46,7 +46,7 @@ myWorkspaces = ["1:web","2:chat","3:code","4:term","5:vm"] ++ map show [6..8]
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "chromium-browser" --> doShift "1:web"
+    [ className =? "chromium" --> doShift "1:web"
     , className =? "VirtualBox"       --> doShift "5:vm"
     , className =? "Xchat"            --> doShift "2:chat"
     , className =? "Eclipse"          --> doShift "3:code"
@@ -67,8 +67,7 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (
-    Tall 1 (3/100) (2/3) |||
+myLayout = avoidStruts ( Tall 1 (3/100) (2/3) |||
     Mirror (Tall 1 (3/100) (2/10)) |||
 --    tabbed shrinkText tabConfig |||
     noBorders (fullscreenFull Full))
